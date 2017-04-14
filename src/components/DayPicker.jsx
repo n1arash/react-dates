@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import shallowCompare from 'react-addons-shallow-compare';
 import ReactDOM from 'react-dom';
 import { forbidExtraProps, nonNegativeInteger } from 'airbnb-prop-types';
-import moment from 'moment';
+import moment from 'moment-jalali';
 import cx from 'classnames';
 import throttle from 'lodash.throttle';
 
@@ -167,7 +167,7 @@ function getMonthHeight(el) {
 export default class DayPicker extends React.Component {
   constructor(props) {
     super(props);
-
+    moment.loadPersian();
     const currentMonth = props.hidden ? moment() : props.initialVisibleMonth();
 
     let focusedDate = currentMonth.clone().startOf('month');

@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment from 'moment-jalali';
 
 import toMomentObject from './toMomentObject';
 

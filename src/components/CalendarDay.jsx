@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import shallowCompare from 'react-addons-shallow-compare';
 import momentPropTypes from 'react-moment-proptypes';
 import { forbidExtraProps, nonNegativeInteger } from 'airbnb-prop-types';
-import moment from 'moment';
+import moment from 'moment-jalali';
 import cx from 'classnames';
 
 import { CalendarDayPhrases } from '../defaultPhrases';
@@ -100,7 +100,7 @@ export default class CalendarDay extends React.Component {
     }, modifiersForDay.map(mod => `CalendarDay--${mod}`));
 
 
-    const formattedDate = `${day.format('dddd')}, ${day.format('LL')}`;
+    const formattedDate = `${day.format('jD')}, ${day.format('LL')}`;
 
     let ariaLabel = getPhrase(chooseAvailableDate, {
       date: formattedDate,
@@ -128,7 +128,7 @@ export default class CalendarDay extends React.Component {
           onClick={(e) => { this.onDayClick(day, e); }}
           tabIndex={tabIndex}
         >
-          {renderDay ? renderDay(day) : day.format('D')}
+          {renderDay ? renderDay(day) : day.format('jD')}
         </button>
       </td>
     );
