@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { forbidExtraProps } from 'airbnb-prop-types';
 import cx from 'classnames';
-
+import moment from 'moment-jalali'
 import { DateRangePickerInputPhrases } from '../defaultPhrases';
 import getPhrasePropTypes from '../utils/getPhrasePropTypes';
 
@@ -96,10 +96,11 @@ const defaultProps = {
 export default class DateRangePickerInput extends React.Component {
   constructor(props) {
     super(props);
+    moment.loadPersian()
     this.state = {
       isClearDatesHovered: false,
     };
-
+    moment.loadPersian()
     this.onClearDatesMouseEnter = this.onClearDatesMouseEnter.bind(this);
     this.onClearDatesMouseLeave = this.onClearDatesMouseLeave.bind(this);
   }

@@ -67,17 +67,17 @@ const defaultProps = {
   isFocused: false,
 
   // i18n
-  monthFormat: 'jYYYY jM', // english locale
+  monthFormat: 'jYYYY jMonth', // english locale
   phrases: CalendarDayPhrases,
 };
 
 function getMonths(initialMonth, numberOfMonths) {
-  let month = initialMonth.clone().subtract(1, 'month');
+  let month = initialMonth.clone().subtract(1, 'jMonth');
 
   const months = [];
   for (let i = 0; i < numberOfMonths + 2; i += 1) {
     months.push(month);
-    month = month.clone().add(1, 'month');
+    month = month.clone().add(1, 'jMonth');
   }
 
   return months;
@@ -107,17 +107,17 @@ export default class CalendarMonthGrid extends React.Component {
     const { initialMonth, numberOfMonths } = nextProps;
     const { months } = this.state;
 
-    const hasMonthChanged = !this.props.initialMonth.isSame(initialMonth, 'month');
+    const hasMonthChanged = !this.props.initialMonth.isSame(initialMonth, 'jMonth');
     const hasNumberOfMonthsChanged = this.props.numberOfMonths !== numberOfMonths;
     let newMonths = months;
 
     if (hasMonthChanged && !hasNumberOfMonthsChanged) {
       if (initialMonth.isAfter(this.props.initialMonth)) {
         newMonths = months.slice(1);
-        newMonths.push(months[months.length - 1].clone().add(1, 'month'));
+        newMonths.push(months[months.length - 1].clone().add(1, 'jMonth'));
       } else {
         newMonths = months.slice(0, months.length - 1);
-        newMonths.unshift(months[0].clone().subtract(1, 'month'));
+        newMonths.unshift(months[0].clone().subtract(1, 'jMonth'));
       }
     }
 
@@ -208,7 +208,7 @@ export default class CalendarMonthGrid extends React.Component {
             (i >= firstVisibleMonthIndex) && (i < firstVisibleMonthIndex + numberOfMonths);
           return (
             <CalendarMonth
-              key={month.format('YYYY-MM')}
+              key={month.format('jYYYY-jMM')}
               month={month}
               isVisible={isVisible}
               enableOutsideDays={enableOutsideDays}

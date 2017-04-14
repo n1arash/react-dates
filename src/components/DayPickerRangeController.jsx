@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import momentPropTypes from 'react-moment-proptypes';
 import { forbidExtraProps, nonNegativeInteger } from 'airbnb-prop-types';
-import moment from 'moment';
+import moment from 'moment-jalali';
 
 import { DayPickerPhrases } from '../defaultPhrases';
 import getPhrasePropTypes from '../utils/getPhrasePropTypes';
@@ -107,13 +107,14 @@ const defaultProps = {
   showKeyboardShortcuts: false,
 
   // i18n
-  monthFormat: 'MMMM YYYY',
+  monthFormat: 'jYYYY jMonth',
   phrases: DayPickerPhrases,
 };
 
 export default class DayPickerRangeController extends React.Component {
   constructor(props) {
     super(props);
+    moment.loadPersian()
     this.state = {
       hoverDate: null,
     };
@@ -188,7 +189,7 @@ export default class DayPickerRangeController extends React.Component {
   getFirstFocusableDay(newMonth) {
     const { startDate, endDate, focusedInput, minimumNights, numberOfMonths } = this.props;
 
-    let focusedDate = newMonth.clone().startOf('month');
+    let focusedDate = newMonth.clone().startOf('jMonth');
     if (focusedInput === START_DATE && startDate) {
       focusedDate = startDate.clone();
     } else if (focusedInput === END_DATE && !endDate && startDate) {
@@ -199,7 +200,7 @@ export default class DayPickerRangeController extends React.Component {
 
     if (this.isBlocked(focusedDate)) {
       const days = [];
-      const lastVisibleDay = newMonth.clone().add(numberOfMonths - 1, 'months').endOf('month');
+      const lastVisibleDay = newMonth.clone().add(numberOfMonths - 1, 'months').endOf('jMonth');
       let currentDay = focusedDate.clone();
       while (!currentDay.isAfter(lastVisibleDay)) {
         currentDay = currentDay.clone().add(1, 'day');

@@ -106,7 +106,7 @@ export const defaultProps = {
   showKeyboardShortcuts: false,
 
   // internationalization
-  monthFormat: 'MMMM YYYY',
+  monthFormat: 'jYYYY jMonth',
   phrases: DayPickerPhrases,
 };
 
@@ -463,8 +463,8 @@ export default class DayPicker extends React.Component {
     const { currentMonth } = this.state;
 
     const month = newMonth || currentMonth;
-    const firstDayOfFirstMonth = month.clone().startOf('month');
-    const lastDayOfLastMonth = month.clone().add(numberOfMonths - 1, 'months').endOf('month');
+    const firstDayOfFirstMonth = month.clone().startOf('jMonth');
+    const lastDayOfLastMonth = month.clone().add(numberOfMonths - 1, 'jMonth').endOf('jMonth');
 
     return !day.isBefore(firstDayOfFirstMonth) && !day.isAfter(lastDayOfLastMonth);
   }
@@ -494,9 +494,9 @@ export default class DayPicker extends React.Component {
 
     const newMonth = currentMonth.clone();
     if (monthTransition === PREV_TRANSITION) {
-      newMonth.subtract(1, 'month');
+      newMonth.subtract(1, 'jMonth');
     } else if (monthTransition === NEXT_TRANSITION) {
-      newMonth.add(1, 'month');
+      newMonth.add(1, 'jMonth');
     }
 
     let newFocusedDate = null;

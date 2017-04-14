@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import shallowCompare from 'react-addons-shallow-compare';
-import moment from 'moment';
+import moment from 'moment-jalali';
 import cx from 'classnames';
 import Portal from 'react-portal';
 import { forbidExtraProps } from 'airbnb-prop-types';
@@ -85,14 +85,15 @@ const defaultProps = {
   isDayHighlighted: () => false,
 
   // internationalization
-  displayFormat: () => moment.localeData().longDateFormat('L'),
-  monthFormat: 'MMMM YYYY',
+  displayFormat: () => 'jYYYY/jM/jD',
+  monthFormat: 'jYYYY jMonth',
   phrases: DateRangePickerPhrases,
 };
 
 export default class DateRangePicker extends React.Component {
   constructor(props) {
     super(props);
+    moment.loadPersian()
     this.state = {
       dayPickerContainerStyles: {},
       isDateRangePickerInputFocused: false,

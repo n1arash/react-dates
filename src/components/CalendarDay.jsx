@@ -49,6 +49,10 @@ export function getModifiersForDay(modifiers, day) {
 }
 
 export default class CalendarDay extends React.Component {
+  constructor(props){
+    super(props)
+    moment.loadPersian()
+  }
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState);
   }
@@ -100,7 +104,7 @@ export default class CalendarDay extends React.Component {
     }, modifiersForDay.map(mod => `CalendarDay--${mod}`));
 
 
-    const formattedDate = `${day.format('jD')}, ${day.format('LL')}`;
+    const formattedDate = `${day.format('jDay')}, ${day.format('LL')}`;
 
     let ariaLabel = getPhrase(chooseAvailableDate, {
       date: formattedDate,

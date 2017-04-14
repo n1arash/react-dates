@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import moment from 'moment-jalali';
 
 import momentPropTypes from 'react-moment-proptypes';
 import { forbidExtraProps } from 'airbnb-prop-types';
@@ -104,7 +104,7 @@ const defaultProps = {
 export default class DateRangePickerInputController extends React.Component {
   constructor(props) {
     super(props);
-
+    moment.loadPersian()
     this.onClearFocus = this.onClearFocus.bind(this);
     this.onStartDateChange = this.onStartDateChange.bind(this);
     this.onStartDateFocus = this.onStartDateFocus.bind(this);

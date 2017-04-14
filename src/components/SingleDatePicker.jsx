@@ -77,7 +77,7 @@ const defaultProps = {
 
   // internationalization props
   displayFormat: () => moment.localeData().longDateFormat('L'),
-  monthFormat: 'MMMM YYYY',
+  monthFormat: 'jYYYY jMonth',
   phrases: SingleDatePickerPhrases,
 };
 
@@ -274,14 +274,14 @@ export default class SingleDatePicker extends React.Component {
   getFirstFocusableDay(newMonth) {
     const { date, numberOfMonths } = this.props;
 
-    let focusedDate = newMonth.clone().startOf('month');
+    let focusedDate = newMonth.clone().startOf('jMonth');
     if (date) {
       focusedDate = date.clone();
     }
 
     if (this.isBlocked(focusedDate)) {
       const days = [];
-      const lastVisibleDay = newMonth.clone().add(numberOfMonths - 1, 'months').endOf('month');
+      const lastVisibleDay = newMonth.clone().add(numberOfMonths - 1, 'months').endOf('jMonth');
       let currentDay = focusedDate.clone();
       while (!currentDay.isAfter(lastVisibleDay)) {
         currentDay = currentDay.clone().add(1, 'day');
