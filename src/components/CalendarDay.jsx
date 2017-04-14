@@ -5,6 +5,7 @@ import momentPropTypes from 'react-moment-proptypes';
 import { forbidExtraProps, nonNegativeInteger } from 'airbnb-prop-types';
 import moment from 'moment';
 import cx from 'classnames';
+import dashify from 'dashify';
 
 import { CalendarDayPhrases } from '../defaultPhrases';
 import getPhrasePropTypes from '../utils/getPhrasePropTypes';
@@ -32,7 +33,7 @@ const defaultProps = {
   day: moment(),
   daySize: DAY_SIZE,
   isOutsideDay: false,
-  modifiers: {},
+  modifiers: [],
   isFocused: false,
   tabIndex: -1,
   onDayClick() {},
@@ -93,12 +94,9 @@ export default class CalendarDay extends React.Component {
 
     if (!day) return <td />;
 
-    const modifiersForDay = getModifiersForDay(modifiers, day);
-
     const className = cx('CalendarDay', {
       'CalendarDay--outside': isOutsideDay,
-    }, modifiersForDay.map(mod => `CalendarDay--${mod}`));
-
+    }, [...modifiers].map(mod => `CalendarDay--${mod}`));
 
     const formattedDate = `${day.format('dddd')}, ${day.format('LL')}`;
 

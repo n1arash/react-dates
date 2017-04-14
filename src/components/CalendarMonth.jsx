@@ -15,6 +15,7 @@ import CalendarDay from './CalendarDay';
 
 import getCalendarMonthWeeks from '../utils/getCalendarMonthWeeks';
 import isSameDay from '../utils/isSameDay';
+import toISODateString from '../utils/toISODateString';
 
 import ScrollableOrientationShape from '../shapes/ScrollableOrientationShape';
 
@@ -68,6 +69,9 @@ const defaultProps = {
 export default class CalendarMonth extends React.Component {
   constructor(props) {
     super(props);
+    // const weeks = getCalendarMonthWeeks(props.month, props.enableOutsideDays);
+    // const days = weeks.reduce((a, b) => a.concat(b), []).filter(d => !!d);
+
     this.state = {
       weeks: getCalendarMonthWeeks(props.month, props.enableOutsideDays),
     };
@@ -80,10 +84,30 @@ export default class CalendarMonth extends React.Component {
         weeks: getCalendarMonthWeeks(month, enableOutsideDays),
       });
     }
+
+    // if (modifiers !== this.props.modifiers) {
+    //   this.setState({
+    //     modifiers: this.updateModifiers(this.state.days, modifiers),
+    //   });
+    // }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState);
+  }
+
+  updateModifiers(days, modifiers) {
+    const modifiersByDay = {};
+    days.forEach((day) => {
+      const modifiersForDay = Object.keys(modifiers).filter((modifier) => {
+        const modifiedDays = modifiers[modifier];
+        return modifiedDays.filter(d => isSameDay(d, day)).length > 0;
+      });
+
+      modifiersByDay[toISODateString(day)] = modifiersForDay;
+    });
+
+    return modifiersByDay;
   }
 
   render() {
@@ -129,13 +153,13 @@ export default class CalendarMonth extends React.Component {
                     isOutsideDay={!day || day.month() !== month.month()}
                     tabIndex={isVisible && isSameDay(day, focusedDate) ? 0 : -1}
                     isFocused={isFocused}
-                    modifiers={modifiers}
                     key={dayOfWeek}
                     onDayMouseEnter={onDayMouseEnter}
                     onDayMouseLeave={onDayMouseLeave}
                     onDayClick={onDayClick}
                     renderDay={renderDay}
                     phrases={phrases}
+                    modifiers={modifiers[toISODateString(day)]}
                   />
                 ))}
               </tr>
